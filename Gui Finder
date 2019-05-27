@@ -1,0 +1,37 @@
+# This script helps you find nodes that contain gui expression
+  # To make this script and give you list of nodes that has gui, you need to creat python button and pulldown choice button using NoOp
+
+# stores list of node names to list
+list = nuke.thisNode().knob('nodes_list').values()
+
+# Emptying the list
+list *= 0
+
+guiNodes = []
+
+import re
+
+def scriptSearch():
+
+    for nodes in nuke.allNodes(recurseGroups=True):
+        for knob in nodes.allKnobs():
+            if knob.hasExpression():
+                for anim in knob.animations():
+                    expr = anim.expression()
+                    if re.search("\$gui",expr):
+                        guiNodes.append(nodes.knob('name').getValue())
+
+
+    for i in list:
+        for n in guiNodes:
+            if i == n:
+                guiNodes.remove(n)
+
+
+    for i in guiNodes:
+        list. append(i)
+
+    return list
+
+# you should creat another pull konb with knob name "nodes_list" to get this line working
+nuke.thisNode().knob('nodes_list').setValues(scriptSearch())
