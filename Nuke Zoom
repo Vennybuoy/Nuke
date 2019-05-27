@@ -1,0 +1,12 @@
+# This Py script helps you zoom into nodes of same name
+# this is also an add on to gui finder script in the repo
+
+# Takes the node name selected from the knob "nodes_list"
+ks = nuke.thisNode().knob('nodes_list').value()
+
+# Zooms into nodes, can also be used with .toNode('nodename')
+w = nuke.toNode(ks)
+w.knob('selected').setValue(True)
+xC = w.xpos() + w.screenWidth()/2
+yC = w.ypos() + w.screenHeight()/2
+nuke.zoom(3, [xC, yC])
