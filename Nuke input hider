@@ -1,0 +1,9 @@
+# Helps hide and unhide all or selected node inputs
+# comes handy while dealing with heavy scripts in nuke
+# creat a py button in NoOp to exciute when needed
+
+x = nuke.allnodes('Dot')
+
+for i in x:
+  # set value to '0' to unhide
+  i.knob('hide_input').setValue(1)
